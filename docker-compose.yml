@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    image: becdetat/tv-thing:latest
+    container_name: tv-thing
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - TMDB_API_KEY=${TMDB_API_KEY}
+    volumes:
+      - ./data:/data
+    networks:
+      - tv-thing-network
+
+networks:
+  tv-thing-network:
+    driver: bridge
+
